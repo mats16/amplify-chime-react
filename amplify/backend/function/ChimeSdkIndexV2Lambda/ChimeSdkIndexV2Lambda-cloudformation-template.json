@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-chime-react-dev-110041-deployment",
-					"S3Key": "amplify-builds/ChimeSdkIndexV2Lambda-56544966546f54574c5a-build.zip"
+					"S3Key": "amplify-builds/ChimeSdkIndexV2Lambda-6966634e674435523355-build.zip"
 				}
 			}
 		},

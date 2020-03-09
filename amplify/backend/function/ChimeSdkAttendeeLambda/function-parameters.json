@@ -1,6 +1,12 @@
 {
     "permissions": {
         "storage": {
+            "Meetings": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ],
             "Attendees": [
                 "create",
                 "read",

@@ -1,4 +1,13 @@
-var AWS = require('./aws-sdk');
+/* Amplify Params - DO NOT EDIT
+You can access the following resource attributes as environment variables from your Lambda function
+var environment = process.env.ENV
+var region = process.env.REGION
+var storageMeetingsName = process.env.STORAGE_MEETINGS_NAME
+var storageMeetingsArn = process.env.STORAGE_MEETINGS_ARN
+var storageAttendeesName = process.env.STORAGE_ATTENDEES_NAME
+var storageAttendeesArn = process.env.STORAGE_ATTENDEES_ARN
+
+Amplify Params - DO NOT EDIT */var AWS = require('aws-sdk');
 var ddb = new AWS.DynamoDB();
 const chime = new AWS.Chime({ region: 'us-east-1' });
 chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console');
@@ -6,8 +15,8 @@ chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console'
 const oneDayFromNow = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
 
 // Read resource names from the environment
-const meetingsTableName = process.env.MEETINGS_TABLE_NAME;
-const attendeesTableName = process.env.ATTENDEES_TABLE_NAME;
+const meetingsTableName = process.env.STORAGE_MEETINGS_NAME;
+const attendeesTableName = process.env.STORAGE_ATTENDEES_NAME;
 
 function uuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

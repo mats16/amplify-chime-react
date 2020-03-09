@@ -72,6 +72,12 @@
 						},
 						"STORAGE_MEETINGS_ARN": {
 							"Ref": "storageMeetingsArn"
+						},
+						"STORAGE_ATTENDEES_NAME": {
+							"Ref": "storageAttendeesName"
+						},
+						"STORAGE_ATTENDEES_ARN": {
+							"Ref": "storageAttendeesArn"
 						}
 					}
 				},
@@ -85,7 +91,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-amplify-chime-react-dev-110041-deployment",
-					"S3Key": "amplify-builds/ChimeSdkJoinLambda-446f6d58494d652b5152-build.zip"
+					"S3Key": "amplify-builds/ChimeSdkJoinLambda-35344d5178726b596444-build.zip"
 				}
 			}
 		},
@@ -239,6 +245,39 @@
 										[
 											{
 												"Ref": "storageMeetingsArn"
+											},
+											"index/*"
+										]
+									]
+								}
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storageAttendeesArn"
+								},
+								{
+									"Fn::Join": [
+										"/",
+										[
+											{
+												"Ref": "storageAttendeesArn"
 											},
 											"index/*"
 										]

@@ -6,6 +6,12 @@
                 "read",
                 "update",
                 "delete"
+            ],
+            "Attendees": [
+                "create",
+                "read",
+                "update",
+                "delete"
             ]
         }
     }

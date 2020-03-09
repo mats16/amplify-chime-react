@@ -1,4 +1,11 @@
-var AWS = require('./aws-sdk');
+/* Amplify Params - DO NOT EDIT
+You can access the following resource attributes as environment variables from your Lambda function
+var environment = process.env.ENV
+var region = process.env.REGION
+var storageMeetingsName = process.env.STORAGE_MEETINGS_NAME
+var storageMeetingsArn = process.env.STORAGE_MEETINGS_ARN
+
+Amplify Params - DO NOT EDIT */var AWS = require('aws-sdk');
 var ddb = new AWS.DynamoDB();
 const chime = new AWS.Chime({ region: 'us-east-1' });
 chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console');
@@ -6,15 +13,7 @@ chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console'
 const oneDayFromNow = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
 
 // Read resource names from the environment
-const meetingsTableName = process.env.MEETINGS_TABLE_NAME;
-const attendeesTableName = process.env.ATTENDEES_TABLE_NAME;
-
-function uuid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
+const meetingsTableName = process.env.STORAGE_MEETINGS_NAME;
 
 const getMeeting = async(meetingTitle) => {
   const result = await ddb.getItem({
@@ -30,49 +29,6 @@ const getMeeting = async(meetingTitle) => {
   }
   const meetingData = JSON.parse(result.Item.Data.S);
   return meetingData;
-}
-
-const putMeeting = async(title, meetingInfo) => {
-  await ddb.putItem({
-    TableName: meetingsTableName,
-    Item: {
-      'Title': { S: title },
-      'Data': { S: JSON.stringify(meetingInfo) },
-      'TTL': {
-        N: '' + oneDayFromNow
-      }
-    }
-  }).promise();
-}
-
-const getAttendee = async(title, attendeeId) => {
-  const result = await ddb.getItem({
-    TableName: attendeesTableName,
-    Key: {
-      'AttendeeId': {
-        S: `${title}/${attendeeId}`
-      }
-    }
-  }).promise();
-  if (!result.Item) {
-    return 'Unknown';
-  }
-  return result.Item.Name.S;
-}
-
-const putAttendee = async(title, attendeeId, name) => {
-  await ddb.putItem({
-    TableName: attendeesTableName,
-    Item: {
-      'AttendeeId': {
-        S: `${title}/${attendeeId}`
-      },
-      'Name': { S: name },
-      'TTL': {
-        N: '' + oneDayFromNow
-      }
-    }
-  }).promise();
 }
 
 // ===== Join or create meeting ===================================
