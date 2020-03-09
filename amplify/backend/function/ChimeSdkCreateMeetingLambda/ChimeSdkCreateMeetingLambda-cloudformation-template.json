@@ -214,6 +214,40 @@
 					]
 				}
 			}
+		},
+		"ChimeMeetingsAccess": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "ChimeMeetingsAccess",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"chime:CreateMeeting",
+								"chime:DeleteMeeting",
+								"chime:GetMeeting",
+								"chime:ListMeetings",
+								"chime:BatchCreateAttendee",
+								"chime:CreateAttendee",
+								"chime:DeleteAttendee",
+								"chime:GetAttendee",
+								"chime:ListAttendees"
+							],
+							"Resource": "*"
+						}
+					]
+				}
+			}
 		}
 	},
 	"Outputs": {
