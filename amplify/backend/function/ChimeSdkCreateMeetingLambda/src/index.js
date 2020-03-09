@@ -8,8 +8,6 @@ const oneDayFromNow = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
 // Read resource names from the environment
 const meetingsTableName = process.env.MEETINGS_TABLE_NAME;
 const attendeesTableName = process.env.ATTENDEES_TABLE_NAME;
-const sqsQueueArn = process.env.SQS_QUEUE_ARN;
-const provideQueueArn = process.env.USE_EVENT_BRIDGE === 'false';
 
 function uuid() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -78,11 +76,6 @@ const putAttendee = async(title, attendeeId, name) => {
 }
 
 function getNotificationsConfig() {
-  if (provideQueueArn) {
-    return  {
-      SqsQueueArn: sqsQueueArn,
-    };
-  }
   return {}
 }
 
@@ -125,86 +118,3 @@ exports.handler = async(event, context, callback) => {
   response.body = JSON.stringify(joinInfo, '', 2);
   callback(null, response);
 };
-
-//exports.join = async(event, context, callback) => {
-//  var response = {
-//    "statusCode": 200,
-//    "headers": {},
-//    "body": '',
-//    "isBase64Encoded": false
-//  };
-//
-//  if (!event.queryStringParameters.title || !event.queryStringParameters.name) {
-//    response["statusCode"] = 400;
-//    response["body"] = "Must provide title and name";
-//    callback(null, response);
-//    return;
-//  }
-//  const title = event.queryStringParameters.title;
-//  const name = event.queryStringParameters.name;
-//  const region = event.queryStringParameters.region || 'us-east-1';
-//  let meetingInfo = await getMeeting(title);
-//  if (!meetingInfo) {
-//    const request = {
-//      ClientRequestToken: uuid(),
-//      MediaRegion: region,
-//      NotificationsConfiguration: getNotificationsConfig(),
-//    };
-//    console.info('Creating new meeting: ' + JSON.stringify(request));
-//    meetingInfo = await chime.createMeeting(request).promise();
-//    await putMeeting(title, meetingInfo);
-//  }
-//
-//  console.info('Adding new attendee');
-//  const attendeeInfo = (await chime.createAttendee({
-//      MeetingId: meetingInfo.Meeting.MeetingId,
-//      ExternalUserId: uuid(),
-//    }).promise());
-//
-//  putAttendee(title, attendeeInfo.Attendee.AttendeeId, name);
-//
-//  const joinInfo = {
-//    JoinInfo: {
-//      Title: title,
-//      Meeting: meetingInfo.Meeting,
-//      Attendee: attendeeInfo.Attendee
-//    },
-//  };
-//
-//  response.body = JSON.stringify(joinInfo, '', 2);
-//  callback(null, response);
-//};
-
-//exports.attendee = async(event, context, callback) => {
-//  var response = {
-//    "statusCode": 200,
-//    "headers": {},
-//    "body": '',
-//    "isBase64Encoded": false
-//  };
-//  const title = event.queryStringParameters.title;
-//  const attendeeId = event.queryStringParameters.attendee;
-//  const attendeeInfo = {
-//    AttendeeInfo: {
-//      AttendeeId: attendeeId,
-//      Name: await getAttendee(title, attendeeId),
-//    },
-//  };
-//  response.body = JSON.stringify(attendeeInfo, '', 2);
-//  callback(null, response);
-//};
-
-//exports.end = async(event, context, callback) => {
-//  var response = {
-//    "statusCode": 200,
-//    "headers": {},
-//    "body": '',
-//    "isBase64Encoded": false
-//  };
-//  const title = event.queryStringParameters.title;
-//  let meetingInfo = await getMeeting(title);
-//  await chime.deleteMeeting({
-//    MeetingId: meetingInfo.Meeting.MeetingId,
-//  }).promise();
-//  callback(null, response);
-//};
