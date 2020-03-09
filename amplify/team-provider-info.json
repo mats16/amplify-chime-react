@@ -10,6 +10,11 @@
             "StackName": "amplify-amplify-chime-react-dev-110041",
             "StackId": "arn:aws:cloudformation:ap-northeast-1:983035974902:stack/amplify-amplify-chime-react-dev-110041/d36bb500-61a9-11ea-87fa-0693e5f01c30",
             "AmplifyAppId": "du6he6g9v9yv6"
+        },
+        "categories": {
+            "auth": {
+                "amplifychimereact6827ce27": {}
+            }
         }
     }
 }

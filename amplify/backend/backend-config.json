@@ -1,3 +1,10 @@
 {
-	"auth": {}
+	"auth": {
+		"amplifychimereact6827ce27": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	},
+	"function": {}
 }
