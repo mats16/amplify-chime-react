@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "storage": {
+            "Attendees": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

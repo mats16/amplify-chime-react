@@ -1,0 +1,107 @@
+{
+    "paths": [
+        {
+            "name": "/join",
+            "lambdaFunction": "ChimeSdkJoinLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/end",
+            "lambdaFunction": "ChimeSdkEndLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/attendee",
+            "lambdaFunction": "ChimeSdkAttendeeLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/meeting",
+            "lambdaFunction": "ChimeSdkCreateMeetingLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/v2",
+            "lambdaFunction": "ChimeSdkIndexV2Lambda",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "chime",
+    "apiName": "chime",
+    "functionArns": [
+        {
+            "lambdaFunction": "ChimeSdkJoinLambda"
+        },
+        {
+            "lambdaFunction": "ChimeSdkEndLambda"
+        },
+        {
+            "lambdaFunction": "ChimeSdkAttendeeLambda"
+        },
+        {
+            "lambdaFunction": "ChimeSdkCreateMeetingLambda"
+        },
+        {
+            "lambdaFunction": "ChimeSdkIndexV2Lambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-amplify-chime-react-dev-110041-authRole",
+        "unAuthRoleName": "amplify-amplify-chime-react-dev-110041-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "ChimeSdkJoinLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "ChimeSdkEndLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "ChimeSdkAttendeeLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "ChimeSdkCreateMeetingLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "ChimeSdkIndexV2Lambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "791ee685"
+}

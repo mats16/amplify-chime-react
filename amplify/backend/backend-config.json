@@ -1,10 +1,150 @@
 {
-	"auth": {
-		"amplifychimereact6827ce27": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	},
-	"function": {}
+    "auth": {
+        "amplifychimereact6827ce27": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": []
+        }
+    },
+    "function": {
+        "ChimeSdkCreateMeetingLambda": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "Meetings",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "ChimeSdkJoinLambda": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "Attendees",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "Meetings",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "ChimeSdkEndLambda": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "Meetings",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "ChimeSdkAttendeeLambda": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "Meetings",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "Attendees",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "ChimeSdkIndexV2Lambda": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        }
+    },
+    "storage": {
+        "Meetings": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "Attendees": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        }
+    },
+    "api": {
+        "chime": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "ChimeSdkJoinLambda",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "ChimeSdkEndLambda",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "ChimeSdkAttendeeLambda",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "ChimeSdkCreateMeetingLambda",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "ChimeSdkIndexV2Lambda",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
+    }
 }
