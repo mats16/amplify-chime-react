@@ -62,5 +62,12 @@
 				}
 			]
 		}
+	},
+	"auth": {
+		"amplifychimereactde943c4c": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
 	}
 }
