@@ -1,0 +1,80 @@
+{
+    "paths": [
+        {
+            "name": "/meeting",
+            "lambdaFunction": "ChimeAdminLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/join",
+            "lambdaFunction": "ChimeAdminLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/end",
+            "lambdaFunction": "ChimeAdminLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/attendee",
+            "lambdaFunction": "ChimeAdminLambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/v2",
+            "lambdaFunction": "ChimeSdkIndexV2Lambda",
+            "privacy": {
+                "open": true
+            }
+        },
+        {
+            "name": "/v2",
+            "lambdaFunction": "ChimeSdkIndexV2Lambda",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "ChimeAdminAPI",
+    "apiName": "ChimeAdminAPI",
+    "functionArns": [
+        {
+            "lambdaFunction": "ChimeAdminLambda"
+        },
+        {
+            "lambdaFunction": "ChimeSdkIndexV2Lambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-amplify-chime-react-dev-170948-authRole",
+        "unAuthRoleName": "amplify-amplify-chime-react-dev-170948-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "ChimeAdminLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "ChimeSdkIndexV2Lambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
